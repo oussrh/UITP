@@ -122,9 +122,18 @@ class IncidentsViewSet(viewsets.ModelViewSet):
 
 class DetailViewSet(viewsets.ModelViewSet):
     """Handles creating, creating and updating profiles."""
-
     serializer_class = serializers.DetailSerializer
     queryset = models.Detail.objects.all()
+    def create(self, request, *args, **kwargs):
+        is_many = isinstance(request.data, list)
+        if not is_many:
+            return super(DetailViewSet, self).create(request, *args, **kwargs)
+        else:
+            serializer = self.get_serializer(data=request.data, many=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class RapportsViewSet(viewsets.ModelViewSet):
     """Handles creating, creating and updating profiles."""

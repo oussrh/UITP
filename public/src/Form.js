@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 import Incident from './Incident';
 
@@ -17,7 +19,7 @@ class Form extends Component {
     } 
 }
   handelInput = (e) =>{
-    const incidId= e.target.parentElement.id;
+    const incidId= (e.target.parentElement.id)-1;
     const inputName = e.target.name;
     const inputValue = e.target.value;
     // eslint-disable-next-line
@@ -28,11 +30,22 @@ class Form extends Component {
 
       console.log(this.state.entries)
   }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://127.0.0.1:8000/api/detail/', this.state.entries)
+            .then(function(response) {
+                console.log(response);}) 
+         .catch(function (error) {
+                console.log(error);
+            });
+           }
   render() {
     return (
       <form>
         <Incident inputHandel={this.handelInput}/>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" onClick={this.onSubmit} />
       </form>
     );
   }
