@@ -5,10 +5,12 @@
 ### First Step
 
 ### Tools and technologies
-    **Front-End**
-    * React
-    **Back-end**
-    * Django REST API
+
+**Front-End**
+* React
+**Back-end**
+* Django REST API
+
 ### Start of the project
 
 ### Progression
