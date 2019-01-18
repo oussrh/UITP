@@ -26,7 +26,7 @@ class Form extends Component {
         idRapport: 1,
         idTransport: 2
       });
-      this.c++;
+      this.count++;
     }
 
     this.setState({entries:this.incids})
