@@ -15,10 +15,12 @@ constructor(props) {
         .then( res => {
             
             this.setState({incidents: res.data});
+            this.props.getLngIncidents(res.data.length)
         })
         .catch((err) => {
             console.log("AXIOS ERROR: ", err);
         })
+        
   }
   render() {
     return (
@@ -29,7 +31,7 @@ constructor(props) {
             this.state.incidents.map( x =>
               <div key={x.id} id={x.id} className="inputContainer">
               <label>{x.id}-{x.nomIncident}</label>
-              <select name="frequence" onChange={this.props.handelInput}>
+              <select name="frequence" onChange={this.props.inputHandel}>
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>

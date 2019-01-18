@@ -6,45 +6,58 @@ import Incident from './Incident';
 
 
 class Form extends Component {
-  constructor(c,incids){
-  super()
-  c=1;
-  incids = []
-  while(c < 30){
-    incids.push({id:c,frequence:0,commentaire:"",motivation:"",idRapport:1,idTransport:2});
-    c++;
-  }
+  constructor(c,incids) {
+    super()
     this.state = {
-      entries : incids
-    } 
-}
-  handelInput = (e) =>{
-    const incidId= (e.target.parentElement.id)-1;
+      entries: [],
+      lengIncidents: 0
+    }
+  }
+
+  getLngIncidents = l => {
+    this.count = 1;
+    this.incids = []
+    while (this.count < l) {
+      this.incids.push({
+        id: this.c,
+        frequence: 0,
+        commentaire: "",
+        motivation: "",
+        idRapport: 1,
+        idTransport: 2
+      });
+      this.c++;
+    }
+
+    this.setState({entries:this.incids})
+  }
+  
+  handelInput = (e) => {
+    const incidId = (e.target.parentElement.id) - 1;
+    // eslint-disable-next-line
     const inputName = e.target.name;
     const inputValue = e.target.value;
     // eslint-disable-next-line
-      this.setState()
-      let entries = Object.assign({}, this.state);
-      entries.entries[incidId].inputName = inputValue;
-      this.setState(entries);
-
-      console.log(this.state.entries)
+    let entries = Object.assign({}, this.state);
+    entries.entries[incidId][inputName] = inputValue;
+    this.setState(entries);
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     axios
       .post('http://127.0.0.1:8000/api/detail/', this.state.entries)
-            .then(function(response) {
-                console.log(response);}) 
-         .catch(function (error) {
-                console.log(error);
-            });
-           }
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   render() {
     return (
       <form>
-        <Incident inputHandel={this.handelInput}/>
+        <Incident inputHandel={this.handelInput} getLngIncidents={this.getLngIncidents}/>
         <input type="submit" value="Submit" onClick={this.onSubmit} />
       </form>
     );
