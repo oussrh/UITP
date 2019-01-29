@@ -27,7 +27,7 @@ SECRET_KEY = '(ijt*uw4dd0_vv(-%jm)=8cjz4hhqte_nt97%=jvd3%stll!7k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://python-uitp.herokuapp.com/"]
 
 
 # Application definition
