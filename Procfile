@@ -1,1 +1,1 @@
-web: python app:app
+web: python profiles_project:profiles_api
